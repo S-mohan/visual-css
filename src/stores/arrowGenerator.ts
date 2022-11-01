@@ -1,6 +1,7 @@
 import { computed, reactive, watchEffect, type CSSProperties } from "vue";
 import { defineStore } from "pinia";
 import type { VCArrowDirection } from "@/types";
+import { kebabCase } from "lodash";
 import { useVisualCssStore } from "./visualCss";
 
 export interface ArrowGeneratorFormData {
@@ -75,6 +76,7 @@ export const useArrowGeneratorStore = defineStore("arrowGenerator", () => {
     obj.borderColor = borderColorMaps[direction];
     obj.borderWidth = getBorderWidth(formData)[direction];
     obj.color = formData.color;
+    obj.transform = `rotate(${formData.angle}deg)`;
     return obj;
   };
 
@@ -82,7 +84,7 @@ export const useArrowGeneratorStore = defineStore("arrowGenerator", () => {
     const codes: string[] = [];
     const styleObj = styles.value;
     Object.keys(styleObj).forEach((key) => {
-      codes.push(`${key}:${styleObj[key as any]};`);
+      codes.push(`${kebabCase(key)}: ${styleObj[key as any]};`);
     });
     handleSetCode(codes.join("\n"));
   });

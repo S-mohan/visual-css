@@ -2,10 +2,10 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import TDesign from "tdesign-vue-next";
 import "tdesign-vue-next/es/style/index.css";
-
 import App from "./App.vue";
 import router from "./router";
 import "./assets/app.less";
+import "highlight.js/styles/base16/solarized-light.css";
 
 const app = createApp(App);
 

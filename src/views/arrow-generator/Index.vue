@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import ArrowDirection from "./Direction.vue";
-import FormItem from "@/components/FormItem.vue";
+import { toRef } from "vue";
 import { useArrowGeneratorStore } from "@/stores";
 import { usePropData } from "@/hooks";
-import { toRef } from "vue";
+import FormItem from "@/components/FormItem.vue";
 import SliderWithInput from "@/components/SliderWithInput.vue";
+import AngleSelector from "@/components/Angle.vue";
+import ArrowDirection from "./Direction.vue";
 
 const { formData, handleSetFormData } = useArrowGeneratorStore();
 
@@ -31,6 +32,14 @@ const [color, setColor] = usePropData(
       color: newValue,
     })
 );
+
+const [angle, setAngle] = usePropData(
+  toRef(formData, "angle"),
+  (newValue: number) =>
+    handleSetFormData({
+      angle: newValue,
+    })
+);
 </script>
 <template>
   <div class="graph">
@@ -53,7 +62,9 @@ const [color, setColor] = usePropData(
         @change="(v: number) => setHeight(v)"
       />
     </form-item>
-    <form-item label="旋转角度"> </form-item>
+    <form-item label="旋转角度">
+      <angle-selector v-model="angle" @change="setAngle" />
+    </form-item>
     <form-item label="填充颜色">
       <t-color-picker
         :colorModes="['monochrome']"
