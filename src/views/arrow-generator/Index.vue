@@ -69,7 +69,16 @@ const [angle, setAngle] = usePropData(
       <t-color-picker
         :colorModes="['monochrome']"
         :recentColors="null"
-        :swatchColors="null"
+        :swatchColors="[
+          '#0052d9',
+          '#e34d59',
+          '#ed7b2f',
+          '#00a870',
+          '#ffffff',
+          '#000000',
+          '#727c94',
+          '#07374c',
+        ]"
         enableAlpha
         format="RGBA"
         v-model="color"

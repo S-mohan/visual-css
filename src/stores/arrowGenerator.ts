@@ -1,7 +1,7 @@
 import { computed, reactive, watchEffect, type CSSProperties } from "vue";
 import { defineStore } from "pinia";
 import type { VCArrowDirection } from "@/types";
-import { kebabCase } from "lodash";
+import { kebabCase } from "lodash-es";
 import { useVisualCssStore } from "./visualCss";
 
 export interface ArrowGeneratorFormData {

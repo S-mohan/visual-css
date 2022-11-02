@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { VCPoint } from "@/types";
 import { computed, ref, type PropType } from "vue";
+import type { VCPoint } from "@/types";
 import { useDragEvent } from "@/hooks";
 
 const props = defineProps({
@@ -93,72 +93,82 @@ const updateAngleByEvent = (event: MouseEvent) => {
 };
 </script>
 <template>
-  <svg
-    :width="RADIUS * 2 + PADDING"
-    :height="RADIUS * 2 + PADDING"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    class="angle"
-    ref="dragElRef"
-  >
-    <circle
-      :cx="middlePoint.x"
-      :cy="middlePoint.y"
-      :r="RADIUS"
-      fill="white"
-      stroke="#727c94"
-      stroke-width="1"
-    />
-    <circle
-      :cx="middlePoint.x"
-      :cy="middlePoint.y"
-      :r="RADIUS - PADDING"
-      fill="white"
-      stroke="#727c94"
-      stroke-width="1"
-    />
-    <text
-      :x="middlePoint.x"
-      :y="middlePoint.y + 12"
-      font-size="13px"
-      font-family="Avenir,Helvetica,Arial,sans-serif"
-      fill="#727c94"
-      text-anchor="middle"
-      dominant-baseline="middle"
+  <div class="angle">
+    <svg
+      :width="RADIUS * 2 + PADDING"
+      :height="RADIUS * 2 + PADDING"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      class="angle-slider"
+      ref="dragElRef"
     >
-      {{ angle }}°
-    </text>
-    <g>
-      <line
-        :x1="middlePoint.x"
-        :y1="middlePoint.y"
-        :x2="pointEndPoint.x"
-        :y2="pointEndPoint.y"
-        :stroke-width="POINT_WIDTH"
-        stroke="#0052d9"
+      <circle
+        :cx="middlePoint.x"
+        :cy="middlePoint.y"
+        :r="RADIUS"
+        fill="white"
+        stroke="#727c94"
+        stroke-width="1"
       />
       <circle
         :cx="middlePoint.x"
         :cy="middlePoint.y"
-        :r="POINT_WIDTH - 2"
-        fill="#0052d9"
-        stroke="white"
+        :r="RADIUS - PADDING"
+        fill="white"
+        stroke="#727c94"
         stroke-width="1"
       />
-      <!-- 
-      <circle
-        :cx="middlePoint.x"
-        :cy="PADDING"
-        :r="POINT_WIDTH - 2"
-        fill="#0052d9"
-        stroke="white"
-        stroke-width="1"
-      /> -->
-    </g>
-  </svg>
+      <text
+        :x="middlePoint.x"
+        :y="middlePoint.y + 12"
+        font-size="13px"
+        font-family="Avenir,Helvetica,Arial,sans-serif"
+        fill="#727c94"
+        text-anchor="middle"
+        dominant-baseline="middle"
+      >
+        {{ angle }}°
+      </text>
+      <g>
+        <line
+          :x1="middlePoint.x"
+          :y1="middlePoint.y"
+          :x2="pointEndPoint.x"
+          :y2="pointEndPoint.y"
+          :stroke-width="POINT_WIDTH"
+          stroke="#0052d9"
+        />
+        <circle
+          :cx="middlePoint.x"
+          :cy="middlePoint.y"
+          :r="POINT_WIDTH - 2"
+          fill="#0052d9"
+          stroke="white"
+          stroke-width="2"
+        />
+      </g>
+    </svg>
+    <t-input-number
+      class="angle-input"
+      v-model="angle"
+      :min="0"
+      :max="360"
+      :step="1"
+      :format="(value: number) => `${value}°`"
+      theme="column"
+    ></t-input-number>
+  </div>
 </template>
 <style lang="less" scoped>
 .angle {
-  user-select: none;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  &-slider {
+    user-select: none;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  &-input {
+    margin-left: 24px;
+  }
 }
 </style>

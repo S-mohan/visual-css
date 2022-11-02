@@ -15,6 +15,10 @@ const props = defineProps({
     type: Number as PropType<number>,
     default: 1,
   },
+  format: {
+    type: Function as PropType<NonNullable<(value: number) => any>>,
+    default: (value: number) => `${value}px`,
+  },
 });
 
 const emits = defineEmits(["change"]);
@@ -34,6 +38,7 @@ const setValue = (v: number) => {
     :step="step"
     :input-number-props="{
       theme: 'column',
+      format,
     }"
     @change="setValue"
   />
