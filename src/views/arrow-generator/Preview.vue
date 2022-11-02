@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useArrowGeneratorStore } from "@/stores";
-const store = useArrowGeneratorStore();
+import { useVisualCssStore } from "@/stores";
+const store = useVisualCssStore();
 </script>
 <template>
   <div :style="store.styles"></div>

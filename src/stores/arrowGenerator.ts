@@ -1,7 +1,6 @@
-import { computed, reactive, watchEffect, type CSSProperties } from "vue";
+import { reactive, type CSSProperties } from "vue";
 import { defineStore } from "pinia";
 import type { VCArrowDirection } from "@/types";
-import { kebabCase } from "lodash-es";
 import { useVisualCssStore } from "./visualCss";
 
 export interface ArrowGeneratorFormData {
@@ -46,7 +45,7 @@ const getBorderWidth = (formData: ArrowGeneratorFormData): StyleMap => {
 };
 
 export const useArrowGeneratorStore = defineStore("arrowGenerator", () => {
-  const { handleSetCode } = useVisualCssStore();
+  const { handleSetStyles } = useVisualCssStore();
 
   const formData = reactive<ArrowGeneratorFormData>({
     direction: "top",
@@ -56,15 +55,16 @@ export const useArrowGeneratorStore = defineStore("arrowGenerator", () => {
     color: "#0052d9",
   });
 
-  const styles = computed(() => getPreviewStyles());
-
+  // 设置表单值
   const handleSetFormData = function (data: ArrowGeneratorFormData) {
     Object.keys(data).forEach((key) => {
       const k = key as keyof ArrowGeneratorFormData;
       formData[k] = data[k] as unknown as any;
     });
+    handleSetStyles(getPreviewStyles());
   };
 
+  // 获取预览样式
   const getPreviewStyles = function (): CSSProperties {
     const obj: CSSProperties = Object.create(null);
     const direction = formData.direction as VCArrowDirection;
@@ -80,18 +80,10 @@ export const useArrowGeneratorStore = defineStore("arrowGenerator", () => {
     return obj;
   };
 
-  watchEffect(() => {
-    const codes: string[] = [];
-    const styleObj = styles.value;
-    Object.keys(styleObj).forEach((key) => {
-      codes.push(`${kebabCase(key)}: ${styleObj[key as any]};`);
-    });
-    handleSetCode(codes.join("\n"));
-  });
+  handleSetStyles(getPreviewStyles());
 
   return {
     formData,
-    styles,
     handleSetFormData,
     getPreviewStyles,
   };

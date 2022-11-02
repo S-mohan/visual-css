@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PreviewCode from "./Code.vue";
 import PreviewArrowGenerator from "@/views/arrow-generator/Preview.vue";
+import PreviewGridLayout from "@/views/grid-layout/Preview.vue";
 import { VCWidgets } from "@/types";
 import { computed, type Component } from "vue";
 import { useVisualCssStore } from "@/stores";
@@ -11,7 +12,7 @@ const previewComponentMap: {
   [key in VCWidgets]: Component;
 } = {
   [VCWidgets.ARROW_GENERATOR]: PreviewArrowGenerator,
-  [VCWidgets.GRID_LAYOUT]: PreviewArrowGenerator,
+  [VCWidgets.GRID_LAYOUT]: PreviewGridLayout,
 };
 
 const previewComponent = computed(() => previewComponentMap[currentWidget]);
