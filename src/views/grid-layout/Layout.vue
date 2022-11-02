@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { usePropData } from "@/hooks";
 import { useGridLayoutStore } from "@/stores";
-import { computed, toRef } from "vue";
+import { computed, toRef, watchEffect } from "vue";
 const store = useGridLayoutStore();
 
 const templateRows = computed(() =>
@@ -20,6 +20,7 @@ const [columns, setColumns] = usePropData(
   toRef(store.formData, "columns"),
   (value: string, index: number) => {}
 );
+
 
 const handleColUnitChange = (value: string, index: number, type: number) => {};
 </script>

@@ -32,6 +32,7 @@ export const useGridLayoutStore = defineStore("gridLayout", () => {
       formData[k] = data[k] as unknown as any;
     });
     handleSetStyles(getPreviewStyles());
+    console.log(formData);
   };
 
   const getPreviewStyles = function (): CSSProperties {

@@ -13,6 +13,9 @@ export const usePropData = <T, P extends (...args: any) => void>(
     () => prop,
     () => {
       value.value = cloneDeep(prop.value);
+    },
+    {
+      deep: true,
     }
   );
 
